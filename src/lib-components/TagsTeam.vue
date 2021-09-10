@@ -34,7 +34,7 @@ export default {
   <div class="ads-tags-team">
     <slot v-for="(tag, index) in tags">
       <span v-if="tags.length > 0 && index < tagsLimit" :key="index">
-        {{ shortName(tag) }},
+        {{ truncateText(tag) }},
       </span>
     </slot>
     <span v-if="tags.length > tagsLimit"> +{{ tags.length - tagsLimit }} </span>
