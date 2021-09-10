@@ -1,5 +1,4 @@
 <script>
-// import  from '.'
 export default {
   name: "Tabs",
   props: {
