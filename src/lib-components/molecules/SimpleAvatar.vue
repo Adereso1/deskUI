@@ -36,10 +36,3 @@ export default {
   <img class="ads-circle"
     :src="image" :alt="alt" :width="getSize" :height="getSize" @error="imageError" />
 </template>
-<style>
-.ads-circle {
-  border-radius: 100%;
-  display: inline-flex;
-  overflow: hidden;
-}
-</style>
