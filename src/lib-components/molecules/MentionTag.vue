@@ -30,6 +30,22 @@ export default {
     rows: {
       type: Number,
       default: 4
+    },
+    placement: {
+      type: String,
+      default: 'top'
+    },
+    noResult: {
+      type: Boolean,
+      default: true
+    },
+    loadingText: {
+      type: String,
+      default: 'Loading'
+    },
+    noResultText: {
+      type: String,
+      default: 'No result'
     }
   },
   data () {
@@ -64,6 +80,7 @@ export default {
       :items="list"
       :limit="limit"
       :insert-space="insertSpace"
+      :placement="placement"
       offset="20"
       @open="loadItems()"
       @search="loadItems($event)"
@@ -76,8 +93,8 @@ export default {
       />
 
       <template #no-result>
-        <div class="no-result">
-          {{ loading ? 'Loading...' : 'No result' }}
+        <div class="no-result" :class="{'hide': !noResult}">
+          {{ loading ? loadingText : noResultText }}
         </div>
       </template>
 
@@ -154,5 +171,11 @@ export default {
 
 .no-result {
   cursor: default;
+  padding-left: 16px;
+  color: #455A64;
+}
+
+.hide {
+  display: none;
 }
 </style>
