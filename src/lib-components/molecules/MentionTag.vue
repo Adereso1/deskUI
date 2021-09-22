@@ -27,6 +27,10 @@ export default {
       type: Boolean,
       default: true
     },
+    offset: {
+      type: String,
+      default: "6"
+    },
     rows: {
       type: Number,
       default: 4
@@ -81,7 +85,7 @@ export default {
       :limit="limit"
       :insert-space="insertSpace"
       :placement="placement"
-      offset="20"
+      :offset="offset"
       @open="loadItems()"
       @search="loadItems($event)"
     >
@@ -89,6 +93,7 @@ export default {
         v-model="text"
         :rows="rows"
         class="input"
+        autocomplete="off"
         :placeholder="placeholder"
       />
 
@@ -134,6 +139,9 @@ export default {
   display: block;
   z-index: 2000 !important;
   border: 1px solid #DFE5E8;
+  max-height: 304px;
+  overflow-y: auto;
+  position: fixed !important;
 }
 
 .list, .no-result {
