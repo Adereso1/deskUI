@@ -1,10 +1,11 @@
 <script>
-import { Mentionable } from 'vue-mention'
+import { Mentionable } from 'vue-mention';
 
 export default {
   components: {
     Mentionable,
   },
+  name: "MentionTag",
   props: {
     items: {
       type: Array,
@@ -13,6 +14,22 @@ export default {
     placeholder: {
       type: String,
       default: 'Type here...'
+    },
+    limit: {
+      type: Number,
+      default: 3
+    },
+    keys: {
+      type: Array,
+      default: () => ['@']
+    },
+    insertSpace: {
+      type: Boolean,
+      default: true
+    },
+    rows: {
+      type: Number,
+      default: 4
     }
   },
   data () {
@@ -23,12 +40,12 @@ export default {
     }
   },
   methods: {
-    loadIssues (searchText = null) {
+    loadItems (searchText = null) {
       this.loading = true
-      this.list = this.fetchIssues(searchText)
+      this.list = this.fetchItems(searchText);
       this.loading = false
     },
-    fetchIssues (searchText = null) {
+    fetchItems (searchText = null) {
       if (!searchText) {
         return this.items;
       } else {
@@ -41,21 +58,19 @@ export default {
 </script>
 
 <template>
-  <div
-    class="demo"
-  >
+  <div class="container-mentionable">
     <Mentionable
-      :keys="['@']"
+      :keys="keys"
       :items="list"
-      :limit="20"
-      insert-space
-      offset="1"
-      @open="loadIssues()"
-      @search="loadIssues($event)"
+      :limit="limit"
+      :insert-space="insertSpace"
+      offset="20"
+      @open="loadItems()"
+      @search="loadItems($event)"
     >
       <textarea
         v-model="text"
-        rows="6"
+        :rows="rows"
         class="input"
         :placeholder="placeholder"
       />
@@ -68,6 +83,7 @@ export default {
 
       <template #item-@="{ item }">
         <div class="list">
+          <span class="line"></span>
           <span class="avatar">
             <UserAvatar :profile="item" />
           </span>
@@ -77,32 +93,30 @@ export default {
         </div>
       </template>
     </Mentionable>
-
-    <div class="preview">{{ text }}</div>
   </div>
 </template>
 
 <style>
-.demo {
-  margin: 24px 200px;
+.container-mentionable {
+  width: 100%;
+  height: 100%;
 }
-
 .input {
   width: 100%;
-  border: #ccc 1px solid;
-  border-radius: 6px;
   resize: vertical;
   min-height: 42px;
-  padding: 12px;
   box-sizing: border-box;
   line-height: 1.2em;
   font-size: inherit;
+  outline: none;
+  padding: 5px;
 }
 
 .tooltip.popover.vue-popover-theme.open {
-  left: 264px !important;
   box-shadow: 0px 4px 16px rgba(168, 199, 217, 0.4);
-  z-index: 1000;
+  display: block;
+  z-index: 2000 !important;
+  border: 1px solid #DFE5E8;
 }
 
 .list, .no-result {
@@ -112,16 +126,25 @@ export default {
   height: 50px;
   display: flex;
   align-items: center;
-  padding: 0 16px;
+  padding: 0 16px 0 0;
 }
 
 .mention-selected .list {
   background: #F2F7F9;
-  border-left: 4px solid #026997;
 }
 
-.mention {
-  border: 1px solid red;
+.list .line {
+  width: 4px;
+  height: 100%;
+  margin-right: 16px;
+}
+
+.mention-selected .list .line {
+  background: #026997;
+}
+
+.list .avatar {
+  margin-right: 15px;
 }
 
 .list .name {
@@ -131,19 +154,5 @@ export default {
 
 .no-result {
   cursor: default;
-}
-
-.dim {
-  color: #455A64;
-  font-weight: 400;
-}
-
-.preview {
-  font-family: monospace;
-  white-space: pre-wrap;
-  margin-top: 12px;
-  padding: 12px;
-  background: #f8f8f8;
-  border-radius: 6px;
 }
 </style>

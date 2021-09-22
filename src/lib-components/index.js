@@ -1,8 +1,11 @@
 /* eslint-disable import/prefer-default-export */
-export { default as DeskUiSample } from './desk-ui-sample.vue';
+// Atoms
+export { default as SimpleAvatar } from './atoms/SimpleAvatar.vue';
+
+// Molecules
 export { default as Tabs } from './molecules/Tabs.vue';
 export { default as TagsTeam } from './molecules/TagsTeam.vue';
 export { default as MentionTag } from './molecules/MentionTag.vue';
-export { default as SimpleAvatar } from './molecules/SimpleAvatar.vue';
 
+// Organinsms
 export { default as UserAvatar } from './organisms/UserAvatar.vue';

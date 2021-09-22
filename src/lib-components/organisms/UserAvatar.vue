@@ -1,5 +1,5 @@
 <script>
-import SimpleAvatar from '../molecules/SimpleAvatar';
+import SimpleAvatar from '../atoms/SimpleAvatar.vue';
 import { tippy } from "vue-tippy";
 
 export default {
