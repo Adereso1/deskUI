@@ -6,6 +6,7 @@ export default {
     Mentionable,
   },
   name: "MentionTag",
+  inheritAttrs: false,
   props: {
     items: {
       type: Array,
@@ -19,13 +20,9 @@ export default {
       type: Number,
       default: 3
     },
-    keys: {
-      type: Array,
-      default: () => ['@']
-    },
-    insertSpace: {
-      type: Boolean,
-      default: true
+    currentUser: {
+      type: String,
+      required: true
     },
     offset: {
       type: String,
@@ -37,7 +34,7 @@ export default {
     },
     placement: {
       type: String,
-      default: 'top'
+      default: 'top-start'
     },
     noResult: {
       type: Boolean,
@@ -52,9 +49,10 @@ export default {
       default: 'No result'
     }
   },
-  data () {
+  data() {
     return {
       text: '',
+      textFormatted: '',
       list: [],
       loading: false,
     }
@@ -67,32 +65,62 @@ export default {
     },
     fetchItems (searchText = null) {
       if (!searchText) {
-        return this.items;
+        return this.values;
       } else {
         const reg = new RegExp(searchText, 'i')
-        return this.items.filter(item => reg.test(item.label));
+        return this.values.filter(item => reg.test(item.label));
       }
+    },
+    highlightText(text = '') {
+      let newText = text;
+      const tags = this.items.map(item => item.name.trim());
+      tags.forEach(tag => {
+        newText = newText.replace(`@${tag}`, () => {
+          if (tag.toLowerCase() === this.currentUser.toLowerCase().trim()) {
+            return `<span class="highlight-text current-user">@${tag}</span>`;
+          }
+          return `<span class="highlight-text">@${tag}</span>`;
+        });
+      });
+      return newText;
+    },
+    onTextInput() {
+      this.$emit("input", this.$refs.input.value);
     }
   },
+  computed: {
+    html() {
+      return this.highlightText(this.text);
+    },
+    values() {
+      return this.items.map(item => ({
+        ...item,
+        value: `${item.value.trim()}`
+      }));
+    }
+  }
 }
 </script>
 
 <template>
   <div class="container-mentionable">
     <Mentionable
-      :keys="keys"
+      :keys="['@']"
       :items="list"
       :limit="limit"
-      :insert-space="insertSpace"
+      insert-space
       :placement="placement"
       :offset="offset"
       @open="loadItems()"
       @search="loadItems($event)"
     >
       <textarea
+        ref="input"
+        v-bind="$attrs"
         v-model="text"
+        @input="onTextInput"
         :rows="rows"
-        class="input"
+        class="input hta-text"
         autocomplete="off"
         :placeholder="placeholder"
       />
@@ -110,10 +138,14 @@ export default {
             <UserAvatar :profile="item" />
           </span>
           <span class="name">
-            {{ item.value }}
+            {{ item.label }}
           </span>
         </div>
       </template>
+      
+      <div ref="background" class="hta-background">
+        <span class="hta-highlights hta-text" v-html="html"></span>
+      </div>
     </Mentionable>
   </div>
 </template>
@@ -122,16 +154,6 @@ export default {
 .container-mentionable {
   width: 100%;
   height: 100%;
-}
-.input {
-  width: 100%;
-  resize: vertical;
-  min-height: 42px;
-  box-sizing: border-box;
-  line-height: 1.2em;
-  font-size: inherit;
-  outline: none;
-  padding: 5px;
 }
 
 .tooltip.popover.vue-popover-theme.open {
@@ -142,6 +164,8 @@ export default {
   max-height: 304px;
   overflow-y: auto;
   position: fixed !important;
+  top: 0 !important;
+  /* left: 275px !important; */
 }
 
 .list, .no-result {
@@ -185,5 +209,84 @@ export default {
 
 .hide {
   display: none;
+}
+
+.hta-background {
+  position: absolute !important;
+  top: 0 !important;
+  left: 0 !important;
+  overflow-x: hidden !important;
+  overflow-y: auto !important;
+  padding: 5px;
+  margin: 0 !important;
+  line-height: 1.2em;
+  font-size: inherit;
+  box-sizing: border-box;
+  z-index: 1;
+}
+
+.hta-highlights {
+  width: auto !important;
+  height: auto !important;
+  border-style: none !important;
+  white-space: pre-wrap !important;
+  word-wrap: break-word !important;
+  overflow: hidden !important;
+}
+
+.hta-text {
+  text-align: left;
+  font: inherit;
+  margin: 0;
+  padding: 0;
+}
+
+.input {
+  width: 100%;
+  min-height: 42px;
+  box-sizing: border-box;
+  line-height: 1.2em;
+  outline: none;
+  padding: 5px;
+  display: block !important;
+  position: relative !important;
+  overflow-x: hidden !important;
+  overflow-y: auto !important;
+  background: none transparent !important;
+  width: 100% !important;
+  height: 100% !important;
+  resize: none !important;
+  caret-color: #333;
+  color: transparent !important;
+  z-index: 1;
+}
+.input:hover {
+  z-index: 2;
+  color: transparent !important;
+  background: #58a2fc;
+}
+
+.input::selection {
+  color: transparent !important;
+  background: #58a2fc;
+}
+.input:hover::selection {
+  color: #333 !important;
+  background: #58a2fc;
+}
+
+.highlight-text {
+  color: #455A64;
+  background: #ECEFF1;
+  border-radius: 4px;
+  padding: 2px 0;
+  margin-top: 10px;
+}
+
+.highlight-text.current-user {
+  color: #026997;
+  background: #81D4F9;
+  border-radius: 4px;
+  padding: 2px 0;
 }
 </style>
