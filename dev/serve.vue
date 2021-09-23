@@ -5,6 +5,19 @@ import Vue from 'vue';
 
 export default Vue.extend({
   name: 'ServeDev',
+  data() {
+    return {
+      tabs: new Array(4).fill(1).map((tab, index) =>({
+        name: `Tab ${index + 1}`,
+        active: index === 0
+      }))
+    }
+  },
+  computed:{
+    getTags() {
+      return this.tabs.map(tab => tab.name)
+    }
+  }
   // components: {
   //  DeskUiSample,
   // }
@@ -14,5 +27,11 @@ export default Vue.extend({
 <template>
   <div id="app">
     <desk-ui-sample />
+      <TagsTeam :tags="getTags" />
+      <Tabs :tabs="tabs">
+        <div v-for="tab in tabs">
+          <slot v-if="tab.active">{{ tab.name }}</slot>
+        </div>
+      </tabs>
   </div>
 </template>
