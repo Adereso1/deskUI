@@ -40,3 +40,23 @@ export default {
     <span v-if="tags.length > tagsLimit"> +{{ tags.length - tagsLimit }} </span>
   </div>
 </template>
+<style lang="scss" scoped>
+@use '../../scss/colors' as color;
+@use '../../scss/variables' as variable;
+.ads-tags-team{
+  display: flex;
+  min-width: 130px;
+  span {
+    background: color.$blanco-arcilla;
+    color: color.$interactive !important;
+    font-family: variable.$font;
+    border-radius: 4px;
+    font-size: 1.2rem;
+    padding: 2px 4px;
+    &:not(:first-child) {
+      margin-left: 5px;
+    }
+  }
+}
+
+</style>
