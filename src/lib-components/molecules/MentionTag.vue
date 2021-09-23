@@ -52,7 +52,6 @@ export default {
   data() {
     return {
       text: '',
-      textFormatted: '',
       list: [],
       loading: false,
     }
@@ -165,7 +164,6 @@ export default {
   overflow-y: auto;
   position: fixed !important;
   top: 0 !important;
-  /* left: 275px !important; */
 }
 
 .list, .no-result {
@@ -219,8 +217,7 @@ export default {
   overflow-y: auto !important;
   padding: 5px;
   margin: 0 !important;
-  line-height: 1.2em;
-  font-size: inherit;
+  line-height: 1.428571429 !important;
   box-sizing: border-box;
   z-index: 1;
 }
@@ -245,7 +242,7 @@ export default {
   width: 100%;
   min-height: 42px;
   box-sizing: border-box;
-  line-height: 1.2em;
+  line-height: 1.428571429 !important;
   outline: none;
   padding: 5px;
   display: block !important;
@@ -260,6 +257,7 @@ export default {
   color: transparent !important;
   z-index: 1;
 }
+
 .input:hover {
   z-index: 2;
   color: transparent !important;
@@ -270,6 +268,7 @@ export default {
   color: transparent !important;
   background: #58a2fc;
 }
+
 .input:hover::selection {
   color: #333 !important;
   background: #58a2fc;
@@ -279,7 +278,7 @@ export default {
   color: #455A64;
   background: #ECEFF1;
   border-radius: 4px;
-  padding: 2px 0;
+  padding: 1px 0;
   margin-top: 10px;
 }
 
@@ -287,6 +286,6 @@ export default {
   color: #026997;
   background: #81D4F9;
   border-radius: 4px;
-  padding: 2px 0;
+  padding: 1px 0;
 }
 </style>
