@@ -64,7 +64,37 @@ export default {
       tags: []
     }
   },
+  mounted() {
+    this.checkElements();
+  },
+  watch: {
+    html() {
+      this.$nextTick(() => {
+        this.syncScroll();
+      });
+    }
+  },
   methods: {
+    checkElements() {
+      const input = this.$refs.input;
+      if (!input) return;
+      const background = this.$refs.background;
+      if (!background) return;
+      let st = background.offsetTop;
+      if (st >= input.scrollTop && st <= input.scrollTop + input.clientHeight)
+      {
+        return;
+      }
+      st = Math.max(0, Math.min(st, input.scrollHeight - input.clientHeight));
+      input.scrollTop = st;
+    },
+    syncScroll() {
+      this.$nextTick(() => {
+        const s = this.$refs.input;
+        const d = this.$refs.background;
+        d.scrollTop = s.scrollTop;
+      });
+    },
     loadItems (searchText = null) {
       this.loading = true
       this.list = this.fetchItems(searchText);
@@ -116,7 +146,7 @@ export default {
         ...item,
         value: `${item.value.trim()}`
       }));
-    }
+    },
   }
 }
 </script>
@@ -133,16 +163,6 @@ export default {
       @open="loadItems()"
       @search="loadItems($event)"
     >
-      <textarea
-        ref="input"
-        v-bind="$attrs"
-        v-bind:value="value"
-        v-on:input="onTextInput"
-        :rows="rows"
-        class="input hta-text"
-        autocomplete="off"
-        :placeholder="placeholder"
-      />
 
       <template #no-result>
         <div class="no-result" :class="{'hide': !noResult}">
@@ -161,9 +181,22 @@ export default {
           </span>
         </div>
       </template>
-      
-      <div ref="background" class="hta-background">
-        <span class="hta-highlights hta-text" v-html="html"></span>
+
+      <div class="hta-container">
+        <textarea
+          ref="input"
+          v-bind="$attrs"
+          v-bind:value="value"
+          v-on:input="onTextInput"
+          :rows="rows"
+          class="input hta-text"
+          autocomplete="off"
+          :placeholder="placeholder"
+          @scroll="syncScroll"
+        />
+        <div ref="background" class="hta-background" id="hta-background">
+          <span class="hta-highlights hta-text" v-html="html"></span>
+        </div>
       </div>
     </Mentionable>
   </div>
@@ -230,17 +263,27 @@ export default {
 .hide {
 	display: none;
 }
+
+.hta-container {
+  width: 100%;
+  display: inline-block;
+  position: relative;
+  overflow: hidden !important;
+  text-size-adjust: none !important;
+}
+
 .hta-background {
 	position: absolute !important;
 	top: 0 !important;
 	left: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
 	overflow-x: hidden !important;
 	overflow-y: auto !important;
 	padding: 5px;
 	margin: 0 !important;
 	line-height: 1.428571429 !important;
 	box-sizing: border-box;
-	z-index: 1;
 }
 .hta-highlights {
 	width: auto !important;
@@ -274,18 +317,10 @@ export default {
 	caret-color: #333;
 	color: transparent !important;
 	z-index: 1;
-	&:hover {
-		z-index: 2;
-		color: transparent !important;
-		background: #58a2fc;
-		&::selection {
-			color: #333 !important;
-			background: #58a2fc;
-		}
-	}
+
 	&::selection {
-		color: transparent !important;
-		background: #58a2fc;
+		color: #333 !important;
+		background: #58a2fc !important;
 	}
 }
 .highlight-text {
