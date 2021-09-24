@@ -82,12 +82,13 @@ export default {
       let newText = text || '';
       this.tags = [];
       const tags = this.items.map(item => ({
-        cmid: item.cmid,
+        ...item,
         name: item.name.trim()
       }));
-      tags.forEach(({cmid, name}) => {
+      tags.forEach(tag => {
+        const {name} = tag;
         newText = newText.replace(`@${name}`, () => {
-          this.tags.push({cmid, name});
+          this.tags.push(tag);
           if (name.toLowerCase() === this.currentUser.toLowerCase().trim()) {
             return `<span class="highlight-text current-user">@${name}</span>`;
           }
