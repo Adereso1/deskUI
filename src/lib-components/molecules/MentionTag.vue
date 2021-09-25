@@ -22,7 +22,7 @@ export default {
     },
     limit: {
       type: Number,
-      default: 3
+      default: 20
     },
     currentUser: {
       type: String,
@@ -40,9 +40,9 @@ export default {
       type: String,
       default: 'top-start'
     },
-    noResult: {
+    showNoResult: {
       type: Boolean,
-      default: true
+      default: false
     },
     loadingText: {
       type: String,
@@ -163,9 +163,19 @@ export default {
       @open="loadItems()"
       @search="loadItems($event)"
     >
-
+      <textarea
+        ref="input"
+        v-bind="$attrs"
+        v-bind:value="value"
+        v-on:input="onTextInput"
+        :rows="rows"
+        class="input hta-text"
+        autocomplete="off"
+        :placeholder="placeholder"
+        @scroll="syncScroll"
+      />
       <template #no-result>
-        <div class="no-result" :class="{'hide': !noResult}">
+        <div class="no-result" :class="{'hide': !showNoResult}">
           {{ loading ? loadingText : noResultText }}
         </div>
       </template>
@@ -182,27 +192,16 @@ export default {
         </div>
       </template>
 
-      <div class="hta-container">
-        <textarea
-          ref="input"
-          v-bind="$attrs"
-          v-bind:value="value"
-          v-on:input="onTextInput"
-          :rows="rows"
-          class="input hta-text"
-          autocomplete="off"
-          :placeholder="placeholder"
-          @scroll="syncScroll"
-        />
-        <div ref="background" class="hta-background" id="hta-background">
-          <span class="hta-highlights hta-text" v-html="html"></span>
-        </div>
+      <div ref="background" class="hta-background" id="hta-background">
+        <span class="hta-highlights hta-text" v-html="html"></span>
       </div>
     </Mentionable>
   </div>
 </template>
 
 <style lang="scss">
+@use '../../scss/colors' as color;
+@use '../../scss/variables';
 
 .container-mentionable {
 	width: 100%;
@@ -215,7 +214,7 @@ export default {
 				box-shadow: 0px 4px 16px rgba(168, 199, 217, 0.4);
 				display: block;
 				z-index: 2000 !important;
-				border: 1px solid #DFE5E8;
+				border: 1px solid color.$gris-ceniza;
 				max-height: 304px;
 				overflow-y: auto;
 				position: fixed !important;
@@ -224,7 +223,7 @@ export default {
 		}
 	}
 }
-.list, .no-result {
+.list {
 	cursor: pointer;
 	background: #fff;
 	width: 264px;
@@ -235,9 +234,9 @@ export default {
 }
 .mention-selected {
 	.list {
-		background: #F2F7F9;
+		background: color.$blanco-plomo;
 		.line {
-			background: #026997;
+			background: color.$interactive;
 		}
 	}
 }
@@ -252,24 +251,21 @@ export default {
 	}
 	.name {
 		font-weight: 700;
-		color: #455A64;
+		color: color.$gris-tlille;
 	}
 }
 .no-result {
 	cursor: default;
-	padding-left: 16px;
-	color: #455A64;
-}
-.hide {
-	display: none;
+	width: 264px !important;
+  height: 50px;
+  padding-left: 16px;
+  display: flex;
+	align-items: center;
+	color: color.$gris-tlille;
 }
 
-.hta-container {
-  width: 100%;
-  display: inline-block;
-  position: relative;
-  overflow: hidden !important;
-  text-size-adjust: none !important;
+.hide {
+	display: none;
 }
 
 .hta-background {
@@ -324,13 +320,13 @@ export default {
 	}
 }
 .highlight-text {
-	color: #455A64;
+	color: color.$gris-tlille;
 	background: #ECEFF1;
 	border-radius: 4px;
 	padding: 1px 0;
 	margin-top: 10px;
 	&.current-user {
-		color: #026997;
+		color: color.$interactive;
 		background: #81D4F9;
 		border-radius: 4px;
 		padding: 1px 0;
