@@ -33,5 +33,7 @@ export default Vue.extend({
           <slot v-if="tab.active">{{ tab.name }}</slot>
         </div>
       </tabs>
+      <hr>
+      <InputText label="Model label" />
   </div>
 </template>
