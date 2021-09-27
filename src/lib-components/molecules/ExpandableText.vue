@@ -16,7 +16,10 @@ export default {
     },
     labels: {
       type: Object,
-      default: null,
+      default: {
+        less: 'See less',
+        more: 'See more'
+      },
       validator: obj =>
         Object.prototype.hasOwnProperty.call(obj, 'more') &&
         Object.prototype.hasOwnProperty.call(obj, 'less')
@@ -45,10 +48,7 @@ export default {
       return {};
     },
     toggleLabel() {
-      if (this.labels) {
-        return this.showAll ? this.labels.less : this.labels.more;
-      }
-      return this.showAll ? 'Ver menos' : 'Ver más';
+      return this.showAll ? this.labels.less : this.labels.more;
     }
   },
   methods: {
