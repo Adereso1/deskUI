@@ -77,12 +77,15 @@ export default {
   methods: {
     checkElements() {
       const input = this.$refs.input;
-      if (!input) return;
+      if (!input) {
+        return;
+      }
       const background = this.$refs.background;
-      if (!background) return;
+      if (!background) {
+        return;
+      }
       let st = background.offsetTop;
-      if (st >= input.scrollTop && st <= input.scrollTop + input.clientHeight)
-      {
+      if (st >= input.scrollTop && st <= input.scrollTop + input.clientHeight) {
         return;
       }
       st = Math.max(0, Math.min(st, input.scrollHeight - input.clientHeight));
@@ -201,67 +204,66 @@ export default {
 
 <style lang="scss">
 @use '../../scss/colors' as color;
-@use '../../scss/variables';
 
 .container-mentionable {
-	width: 100%;
-	height: 100%;
+  width: 100%;
+  height: 100%;
 }
 .tooltip {
-	&.popover {
-		&.vue-popover-theme {
-			&.open {
-				box-shadow: 0px 4px 16px rgba(168, 199, 217, 0.4);
-				display: block;
-				z-index: 2000 !important;
-				border: 1px solid color.$gris-ceniza;
-				max-height: 304px;
-				overflow-y: auto;
-				position: fixed !important;
-				top: 0 !important;
-			}
-		}
-	}
+  &.popover {
+    &.vue-popover-theme {
+      &.open {
+        box-shadow: 0px 4px 16px rgba(168, 199, 217, 0.4);
+        display: block;
+        z-index: 2000 !important;
+        border: 1px solid color.$gris-ceniza;
+        max-height: 304px;
+        overflow-y: auto;
+        position: fixed !important;
+        top: 0 !important;
+      }
+    }
+  }
 }
 .list {
-	cursor: pointer;
-	background: #fff;
-	width: 264px;
-	height: 50px;
-	display: flex;
-	align-items: center;
-	padding: 0 16px 0 0;
+  cursor: pointer;
+  background: #fff;
+  width: 264px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  padding: 0 16px 0 0;
 }
 .mention-selected {
-	.list {
-		background: color.$blanco-plomo;
-		.line {
-			background: color.$interactive;
-		}
-	}
+    .list {
+      background: color.$blanco-plomo;
+    .line {
+      background: color.$interactive;
+    }
+  }
 }
 .list {
-	.line {
-		width: 4px;
-		height: 100%;
-		margin-right: 16px;
-	}
-	.avatar {
-		margin-right: 15px;
-	}
-	.name {
-		font-weight: 700;
-		color: color.$gris-tlille;
-	}
+  .line {
+    width: 4px;
+    height: 100%;
+    margin-right: 16px;
+  }
+  .avatar {
+    margin-right: 15px;
+  }
+  .name {
+    font-weight: 700;
+    color: color.$gris-tlille;
+  }
 }
 .no-result {
-	cursor: default;
-	width: 264px !important;
+  cursor: default;
+  width: 264px !important;
   height: 50px;
   padding-left: 16px;
   display: flex;
-	align-items: center;
-	color: color.$gris-tlille;
+  align-items: center;
+  color: color.$gris-tlille;
 }
 
 .hide {
@@ -269,68 +271,68 @@ export default {
 }
 
 .hta-background {
-	position: absolute !important;
-	top: 0 !important;
-	left: 0 !important;
+  position: absolute !important;
+  top: 0 !important;
+  left: 0 !important;
   right: 0 !important;
   bottom: 0 !important;
-	overflow-x: hidden !important;
-	overflow-y: auto !important;
-	padding: 5px;
-	margin: 0 !important;
-	line-height: 1.428571429 !important;
-	box-sizing: border-box;
+  overflow-x: hidden !important;
+  overflow-y: auto !important;
+  padding: 5px;
+  margin: 0 !important;
+  line-height: 1.428571429 !important;
+  box-sizing: border-box;
 }
 .hta-highlights {
-	width: auto !important;
-	height: auto !important;
-	border-style: none !important;
-	white-space: pre-wrap !important;
-	word-wrap: break-word !important;
-	overflow: hidden !important;
+  width: auto !important;
+  height: auto !important;
+  border-style: none !important;
+  white-space: pre-wrap !important;
+  word-wrap: break-word !important;
+  overflow: hidden !important;
 }
 .hta-text {
-	text-align: left;
-	font: inherit;
-	margin: 0;
-	padding: 0;
+  text-align: left;
+  font: inherit;
+  margin: 0;
+  padding: 0;
 }
 .input {
-	width: 100%;
-	min-height: 42px;
-	box-sizing: border-box;
-	line-height: 1.428571429 !important;
-	outline: none;
-	padding: 5px;
-	display: block !important;
-	position: relative !important;
-	overflow-x: hidden !important;
-	overflow-y: auto !important;
-	background: none transparent !important;
-	width: 100% !important;
-	height: 100% !important;
-	resize: none !important;
-	caret-color: #333;
-	color: transparent !important;
-	z-index: 1;
+  width: 100%;
+  min-height: 42px;
+  box-sizing: border-box;
+  line-height: 1.428571429 !important;
+  outline: none;
+  padding: 5px;
+  display: block !important;
+  position: relative !important;
+  overflow-x: hidden !important;
+  overflow-y: auto !important;
+  background: none transparent !important;
+  width: 100% !important;
+  height: 100% !important;
+  resize: none !important;
+  caret-color: #333;
+  color: transparent !important;
+  z-index: 1;
 
-	&::selection {
-		color: #333 !important;
-		background: #58a2fc !important;
-	}
+  &::selection {
+    color: #333 !important;
+    background: #58a2fc !important;
+  }
 }
 .highlight-text {
-	color: color.$gris-tlille;
-	background: #ECEFF1;
-	border-radius: 4px;
-	padding: 1px 0;
-	margin-top: 10px;
-	&.current-user {
-		color: color.$interactive;
-		background: #81D4F9;
-		border-radius: 4px;
-		padding: 1px 0;
-	}
+  color: color.$gris-tlille;
+  background: color.$gris-piedra;
+  border-radius: 4px;
+  padding: 1px 0;
+  margin-top: 10px;
+  &.current-user {
+    color: color.$interactive;
+    background: #81D4F9;
+    border-radius: 4px;
+    padding: 1px 0;
+  }
 }
 
 </style>
