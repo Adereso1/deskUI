@@ -45,13 +45,10 @@ export default {
       return {};
     },
     toggleLabel() {
-      const toggleArray = ['Ver menos', 'Ver más'];
       if (this.labels) {
         return this.showAll ? this.labels.less : this.labels.more;
       }
-      const toggle = this.showAll ? 0 : 1;
-      // return this.$tc('readMoreLess', toggle);
-      return toggleArray[toggle]
+      return this.showAll ? 'Ver menos' : 'Ver más';
     }
   },
   methods: {
