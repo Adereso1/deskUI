@@ -183,7 +183,7 @@ export default {
         </div>
       </template>
 
-      <template #item-@="{ item }">
+      <template class="v-popover-custom" #item-@="{ item }">
         <div class="list">
           <span class="line"></span>
           <span class="avatar">
@@ -213,11 +213,14 @@ export default {
   &.popover {
     &.vue-popover-theme {
       &.open {
+        opacity: 1;
+        font-style: normal;
         box-shadow: 0px 4px 16px rgba(168, 199, 217, 0.4);
         display: block;
         z-index: 2000 !important;
         border: 1px solid color.$gris-ceniza;
-        max-height: 304px;
+        max-height: 302px;
+        background: #fff;
         overflow-y: auto;
         position: fixed !important;
         top: 0 !important;
