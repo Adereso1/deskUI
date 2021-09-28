@@ -254,20 +254,10 @@ var script$1 = {
       type: Boolean,
       default: false
     },
-    paddingTabs: {
-      type: Number,
-      default: null
-    },
     tabs: {
       type: Array,
       required: true
     }
-  },
-  computed: {
-    padding() {
-      return this.paddingTabs ? `px-${this.paddingTabs}` : "";
-    }
-
   },
   methods: {
     selectTab(index) {
@@ -294,17 +284,15 @@ var __vue_render__$1 = function () {
   return _c('div', {
     staticClass: "tabs"
   }, [_c('ul', {
-    staticClass: "tabs--list list-unstyled d-flex",
-    class: [_vm.padding]
+    staticClass: "tabs--list"
   }, _vm._l(_vm.tabs, function (tab, index) {
     return _c('li', {
       key: tab.index,
       staticClass: "tab",
       class: {
-        tab__active: tab.active
+        'tab__active': tab.active
       }
     }, [_c('button', {
-      staticClass: "btn btn-link",
       attrs: {
         "type": "button",
         "disabled": _vm.disabled
@@ -323,18 +311,24 @@ var __vue_render__$1 = function () {
 var __vue_staticRenderFns__$1 = [];
 /* style */
 
-const __vue_inject_styles__$1 = undefined;
+const __vue_inject_styles__$1 = function (inject) {
+  if (!inject) return;
+  inject("data-v-9b269c02_0", {
+    source: ".tabs--list[data-v-9b269c02]{list-style:none;padding:0;display:flex}.tabs--list .tab[data-v-9b269c02]{user-select:none;outline:0}.tabs--list .tab button[data-v-9b269c02]{text-transform:uppercase;font:-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,Helvetica,Arial,sans-serif,\"Apple Color Emoji\",\"Segoe UI Emoji\",\"Segoe UI Symbol\";border:none;padding:10px 25px;background:0 0;cursor:pointer}.tabs--list .tab__active[data-v-9b269c02]{border-bottom:4px solid #62d2be}.tabs--list .tab__active button[data-v-9b269c02]{font-weight:700}.tabs--details[data-v-9b269c02]{max-height:100%}",
+    map: undefined,
+    media: undefined
+  });
+};
 /* scoped */
 
-const __vue_scope_id__$1 = undefined;
+
+const __vue_scope_id__$1 = "data-v-9b269c02";
 /* module identifier */
 
 const __vue_module_identifier__$1 = undefined;
 /* functional template */
 
 const __vue_is_functional_template__$1 = false;
-/* style inject */
-
 /* style inject SSR */
 
 /* style inject shadow dom */
@@ -342,7 +336,7 @@ const __vue_is_functional_template__$1 = false;
 const __vue_component__$2 = /*#__PURE__*/normalizeComponent({
   render: __vue_render__$1,
   staticRenderFns: __vue_staticRenderFns__$1
-}, __vue_inject_styles__$1, __vue_script__$1, __vue_scope_id__$1, __vue_is_functional_template__$1, __vue_module_identifier__$1, false, undefined, undefined, undefined);
+}, __vue_inject_styles__$1, __vue_script__$1, __vue_scope_id__$1, __vue_is_functional_template__$1, __vue_module_identifier__$1, false, createInjector, undefined, undefined);
 
 var __vue_component__$3 = __vue_component__$2;
 
@@ -403,18 +397,24 @@ var __vue_render__ = function () {
 var __vue_staticRenderFns__ = [];
 /* style */
 
-const __vue_inject_styles__ = undefined;
+const __vue_inject_styles__ = function (inject) {
+  if (!inject) return;
+  inject("data-v-7a6238f0_0", {
+    source: ".ads-tags-team[data-v-7a6238f0]{display:flex;min-width:130px}.ads-tags-team span[data-v-7a6238f0]{background:#f7f7f7;color:#026997!important;font-family:-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,Helvetica,Arial,sans-serif,\"Apple Color Emoji\",\"Segoe UI Emoji\",\"Segoe UI Symbol\";border-radius:4px;font-size:1.2rem;padding:2px 4px}.ads-tags-team span[data-v-7a6238f0]:not(:first-child){margin-left:5px}",
+    map: undefined,
+    media: undefined
+  });
+};
 /* scoped */
 
-const __vue_scope_id__ = undefined;
+
+const __vue_scope_id__ = "data-v-7a6238f0";
 /* module identifier */
 
 const __vue_module_identifier__ = undefined;
 /* functional template */
 
 const __vue_is_functional_template__ = false;
-/* style inject */
-
 /* style inject SSR */
 
 /* style inject shadow dom */
@@ -422,7 +422,7 @@ const __vue_is_functional_template__ = false;
 const __vue_component__ = /*#__PURE__*/normalizeComponent({
   render: __vue_render__,
   staticRenderFns: __vue_staticRenderFns__
-}, __vue_inject_styles__, __vue_script__, __vue_scope_id__, __vue_is_functional_template__, __vue_module_identifier__, false, undefined, undefined, undefined);
+}, __vue_inject_styles__, __vue_script__, __vue_scope_id__, __vue_is_functional_template__, __vue_module_identifier__, false, createInjector, undefined, undefined);
 
 var __vue_component__$1 = __vue_component__;
 
