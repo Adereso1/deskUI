@@ -2,7 +2,7 @@
 export default {
   name: 'ExpandableText',
   props: {
-    paragraph: {
+    text: {
       type: String,
       default: ''
     },
@@ -32,10 +32,10 @@ export default {
   },
   computed: {
     lessOrMore() {
-      if (this.paragraph.length > this.maxLength && !this.showAll) {
-        return `${this.paragraph.substring(0, this.maxLength)}...`;
+      if (this.text.length > this.maxLength && !this.showAll) {
+        return `${this.text.substring(0, this.maxLength)}...`;
       } else {
-        return this.paragraph;
+        return this.text;
       }
     },
     scrolling() {
@@ -62,7 +62,7 @@ export default {
   <div class="ads-expandable-text" :style="scrolling">
     <p>{{ lessOrMore }}
       <button
-        v-if="paragraph.length > maxLength"
+        v-if="text.length > maxLength"
         @click="moreOrLess"
         class="ads-button ads-button--link">{{ toggleLabel }}
       </button>

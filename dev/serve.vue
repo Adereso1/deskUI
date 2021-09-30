@@ -38,6 +38,6 @@ export default Vue.extend({
           <slot v-if="tab.active">{{ tab.name }}</slot>
         </div>
       </tabs>
-      <ExpandableText :paragraph="longText" :max-length="100" :labels="{...labels}"/>
+      <ExpandableText :text="longText" :max-length="100" :labels="{...labels}"/>
   </div>
 </template>
