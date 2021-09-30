@@ -27,6 +27,7 @@ export default Vue.extend({
 <template>
   <div id="app">
     <desk-ui-sample />
+      <SupportLink />
       <TagsTeam :tags="getTags" />
       <Tabs :tabs="tabs">
         <div v-for="tab in tabs">
