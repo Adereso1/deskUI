@@ -1,9 +1,9 @@
 <script>
 export default {
-  name: "SimpleAvatar",
+  name: "Avatar",
   props: {
     size: {
-      type: [Number, String],
+      type: Number,
       default: 22
     },
     src: {
@@ -13,11 +13,20 @@ export default {
     alt: {
       type: String,
       default: ''
+    },
+    rounded: {
+      type: Boolean,
+      default: 0 
     }
   },
   computed: {
+    getRounded(){
+      return {
+        borderRadius: `${this.rounded}%`
+      }
+    },
     getSize() {
-      return this.size ? this.size : '22px';
+      return `${this.size}px`;
     },
     image() {
       return this.src
@@ -33,6 +42,7 @@ export default {
 }
 </script>
 <template>
-  <img class="ads-circle"
+  <img :style="{...getRounded}"
     :src="image" :alt="alt" :width="getSize" :height="getSize" @error="imageError" />
 </template>
+

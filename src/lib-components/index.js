@@ -1,6 +1,6 @@
 /* eslint-disable import/prefer-default-export */
 // Atoms
-export { default as SimpleAvatar } from './atoms/SimpleAvatar.vue';
+export { default as Avatar } from './atoms/Avatar.vue';
 
 // Molecules
 export { default as Tabs } from './molecules/Tabs.vue';
