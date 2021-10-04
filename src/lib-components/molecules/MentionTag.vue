@@ -1,9 +1,11 @@
 <script>
 import { Mentionable } from 'vue-mention';
+import UserListItem from './UserListItem.vue';
 
 export default {
   components: {
     Mentionable,
+    UserListItem
   },
   name: "MentionTag",
   inheritAttrs: false,
@@ -184,15 +186,7 @@ export default {
       </template>
 
       <template class="v-popover-custom" #item-@="{ item }">
-        <div class="list">
-          <span class="line"></span>
-          <span class="avatar">
-            <UserAvatar :profile="item" />
-          </span>
-          <span class="name">
-            {{ item.label }}
-          </span>
-        </div>
+        <UserListItem :user="item" />
       </template>
 
       <div ref="background" class="hta-background" id="hta-background">
@@ -228,35 +222,13 @@ export default {
     }
   }
 }
-.list {
-  cursor: pointer;
-  background: #fff;
-  width: 264px;
-  height: 50px;
-  display: flex;
-  align-items: center;
-  padding: 0 16px 0 0;
-}
+
 .mention-selected {
     .list {
       background: color.$blanco-plomo;
     .line {
       background: color.$interactive;
     }
-  }
-}
-.list {
-  .line {
-    width: 4px;
-    height: 100%;
-    margin-right: 16px;
-  }
-  .avatar {
-    margin-right: 15px;
-  }
-  .name {
-    font-weight: 700;
-    color: color.$gris-tlille;
   }
 }
 .no-result {
