@@ -7,6 +7,11 @@ export default Vue.extend({
   name: 'ServeDev',
   data() {
     return {
+      bar:{
+        height: 30,
+        progress: 95,
+        relativeWidth: 500
+      },
       user:{
         image:'',
         status: 'online',
@@ -33,6 +38,10 @@ export default Vue.extend({
 <template>
   <div id="app">
     <desk-ui-sample />
+      <div style="width:90vw">
+      <ProgressBar :progress="bar.progress" :height="bar.height" />
+      </div>
+      
       <Avatar :rounded="50" :size="50" />
       <UserAvatar :user="user" show-tippy />
       <UserListItem :user="user"/>
