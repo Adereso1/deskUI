@@ -9,7 +9,6 @@ export default {
   },
   computed:{
     getName(){
-      console.log(this.user.label)
       return this.user.label
     }
   }
