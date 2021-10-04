@@ -10,7 +10,8 @@ export default Vue.extend({
       user:{
         image:'',
         status: 'online',
-        assignable: false
+        assignable: false,
+        label: 'username'
       },
       tabs: new Array(4).fill(1).map((tab, index) =>({
         name: `Tab ${index + 1}`,
@@ -34,6 +35,7 @@ export default Vue.extend({
     <desk-ui-sample />
       <Avatar :rounded="50" :size="50" />
       <UserAvatar :user="user" show-tippy />
+      <UserListItem :user="user"/>
       <TagsTeam :tags="getTags" />
       <Tabs :tabs="tabs">
         <div v-for="tab in tabs">
