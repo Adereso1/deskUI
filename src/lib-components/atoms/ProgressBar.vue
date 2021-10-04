@@ -14,13 +14,13 @@ export default {
       type: Number,
       default: 8
     },
-    absoluteWidth: {
+    width: {
       type: Number,
       default: 100
     },
-    relativeWidth: {
+    pixelWidth: {
       type: Boolean,
-      default: null
+      default: false
     }
   },
   computed: {
@@ -29,14 +29,9 @@ export default {
         height: `${this.height}px`
       };
     },
-    getAbsoluteWidth() {
+    getWidth() {
       return {
-        width: `${this.absoluteWidth}px`
-      };
-    },
-    getRelativeWidth() {
-      return !this.relativeWidth ? '' : {
-        width: `${this.relativeWidth}%`
+        width: this.pixelWidth ? `${this.width}px` : `${this.width}%`
       };
     },
     getProgress() {
@@ -48,17 +43,17 @@ export default {
 }
 </script>
 <template>
-  <div class="desk-progress" :style="{...getHeight, ...getAbsoluteWidth, ...getRelativeWidth}">
-    <div class="progress-bar" role="progressbar" :style="getProgress" />
+  <div class="ads-progress" :style="{...getHeight, ...getWidth}">
+    <div class="ads-progress--bar" role="progressbar" :style="getProgress" />
   </div>
 </template>
 <style lang="scss" scoped>
 @use '../../scss/colors' as color;
-.desk-progress {
+.ads-progress {
   display: flex;
   background: color.$gris-piedra;
   border-radius: 5px;
-  .progress-bar {
+  &--bar {
     height: 100%;
     background: color.$azul-matla;
     border-radius: 5px;
