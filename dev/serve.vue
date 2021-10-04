@@ -7,6 +7,12 @@ export default Vue.extend({
   name: 'ServeDev',
   data() {
     return {
+      user:{
+        image:'',
+        status: 'online',
+        assignable: false,
+        label: 'username'
+      },
       tabs: new Array(4).fill(1).map((tab, index) =>({
         name: `Tab ${index + 1}`,
         active: index === 0
@@ -28,6 +34,8 @@ export default Vue.extend({
   <div id="app">
     <desk-ui-sample />
       <Avatar :rounded="50" :size="50" />
+      <UserAvatar :user="user" show-tippy />
+      <UserListItem :user="user"/>
       <TagsTeam :tags="getTags" />
       <Tabs :tabs="tabs">
         <div v-for="tab in tabs">
