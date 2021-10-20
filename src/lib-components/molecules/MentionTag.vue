@@ -63,7 +63,8 @@ export default {
     return {
       list: [],
       loading: false,
-      tags: []
+      tags: [],
+      applyEvent:null
     }
   },
   mounted() {
@@ -74,6 +75,9 @@ export default {
       this.$nextTick(() => {
         this.syncScroll();
       });
+    },
+    applyEvent(txt){
+      console.log(txt)
     }
   },
   methods: {
@@ -166,6 +170,7 @@ export default {
       :offset="offset"
       @open="loadItems()"
       @search="loadItems($event)"
+      @apply="(item, key) => applyEvent = { item, key }"
     >
       <textarea
         ref="input"
