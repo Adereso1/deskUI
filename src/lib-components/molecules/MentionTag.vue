@@ -116,13 +116,12 @@ export default {
     highlightText(text = '') {
       let newText = text || '';
       this.tags = [];
-      const tags = this.items.map(item => ({
-        ...item,
-        name: item.name.trim()
-      }));
+      const tags = this.items;
+      console.log({text, tags, items: this.items})
       tags.forEach(tag => {
         const {name} = tag;
         newText = newText.replace(`@${name}`, () => {
+          console.log(tag)
           this.tags.push(tag);
           if (name.toLowerCase() === this.currentUser.toLowerCase().trim()) {
             return `<span class="highlight-text current-user">@${name}</span>`;
@@ -178,6 +177,7 @@ export default {
         autocomplete="off"
         :placeholder="placeholder"
         @scroll="syncScroll"
+        insert-space
       />
       <template #no-result>
         <div class="no-result" :class="{'hide': !showNoResult}">
@@ -202,6 +202,9 @@ export default {
 .container-mentionable {
   width: 100%;
   height: 100%;
+  textarea{
+    color: black!important;
+  }
 }
 .tooltip {
   &.popover {

@@ -80,8 +80,8 @@ export default {
     <Avatar
       :size="44"
       :rounded="50"
-      :src="image"
-      :alt="status" />
+      :src="user.avatar"
+      :alt="user.status" />
     <span class="status" :style="statusColor" />
   </div>
 </template>

@@ -7,6 +7,7 @@ export default Vue.extend({
   name: 'ServeDev',
   data() {
     return {
+      comment:null,
       bar:{
         height: 30,
         progress: 95,
@@ -18,6 +19,22 @@ export default Vue.extend({
         assignable: false,
         label: 'username'
       },
+      users:[{
+        name:'rholo ahumada',
+        label:'rholo ahumada',
+        value: 'rholo ahumada',
+        image:'',
+        status:'online',
+        cmid: 1
+      },{
+        name:'rholo ahumada chamorro',
+        label:'rholo ahumada chamorro',
+        value: 'rholo ahumada chamorro',
+        image:'',
+        status:'online',
+        cmid:2
+      }],
+      current:{name:'rhockr'},
       tabs: new Array(4).fill(1).map((tab, index) =>({
         name: `Tab ${index + 1}`,
         active: index === 0
@@ -28,6 +45,11 @@ export default Vue.extend({
     getTags() {
       return this.tabs.map(tab => tab.name)
     }
+  },
+  methods:{
+    team(cms){
+      console.log(cms)
+    }
   }
   // components: {
   //  DeskUiSample,
@@ -37,11 +59,10 @@ export default Vue.extend({
 
 <template>
   <div id="app">
-    <desk-ui-sample />
       <div style="width:90vw">
       <ProgressBar :progress="bar.progress" :height="bar.height" />
       </div>
-      
+      <MentionTag :selected-tags="team" v-model="comment" :items="users" :current-user="current.name" /> 
       <Avatar :rounded="50" :size="50" />
       <UserAvatar :user="user" show-tippy />
       <UserListItem :user="user"/>
